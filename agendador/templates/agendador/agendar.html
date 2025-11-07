@@ -1,0 +1,23 @@
+{% extends "agendador/base.html" %}
+
+{% block header %}
+<h1>{{ data_atual }}</h1>
+{%endblock header%}
+
+{% block content %}
+
+<table>
+    <tr>
+        <th>Sala</th>
+        <th>Horário</th>
+        <th>Responsável</th>
+        <th>Localização</th>
+    </tr>
+    {% for sala in salas %}
+    <tr>
+        <th>{{sala.nome}}</th>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
