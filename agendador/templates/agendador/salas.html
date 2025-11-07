@@ -9,13 +9,19 @@
 <table>
     <tr>
         <th>Sala</th>
-        <th>Horário</th>
-        <th>Responsável</th>
+        <th>Capacidade</th>
+        <th>Recursos</th>
         <th>Localização</th>
     </tr>
     {% for sala in salas %}
     <tr>
         <th>{{sala.nome}}</th>
+        <th>{{sala.capacidade}}</th>
+        <th>{{sala.recursos}}</th>
+        <th>{{sala.localização}}</th>
+        <th>
+            <a href="">Agendar</a>
+        </th>
     </tr>
     {% endfor %}
 </table>
