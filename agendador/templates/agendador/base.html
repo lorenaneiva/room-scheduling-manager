@@ -11,8 +11,8 @@
 </head>
 <body>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Agendar Sala</a>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'agendar' %}">Agendar Sala</a>
     </nav>
     {% block header %} {% endblock header %}
     {% block content %}{% endblock content%}
