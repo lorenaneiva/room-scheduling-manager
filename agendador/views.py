@@ -8,8 +8,10 @@ def index(request):
                     .distinct()
                     .select_related('professor','sala')
                     )
+    salas = Sala.objects.order_by('date_added')
     context = {
         'data_atual':data_atual,
-        'agendamentos':agendamentos       
+        'agendamentos':agendamentos,
+        'salas':salas     
         }
     return render(request, 'agendador/index.html', context)
