@@ -1,2 +1,4 @@
-Dockerfile
-manage.py
+.Dockerfile
+*.__pycache__/
+*.venv
+db.sqlite3
