@@ -15,3 +15,12 @@ def index(request):
         'salas':salas     
         }
     return render(request, 'agendador/index.html', context)
+
+def agendar(request):
+    salas = Sala.objects.order_by('capcaidade')
+
+    context = {
+        'salas':salas
+    }
+
+    return render(request,'agendador/agendar.html', context)
