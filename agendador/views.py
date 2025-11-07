@@ -8,7 +8,7 @@ def index(request):
                     .distinct()
                     .select_related('professor','sala')
                     )
-    salas = Sala.objects.order_by('date_added')
+    salas = Sala.objects.order_by('capacidade')
     context = {
         'data_atual':data_atual,
         'agendamentos':agendamentos,
