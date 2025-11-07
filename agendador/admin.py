@@ -1,3 +1,6 @@
 from django.contrib import admin
+from agendador.models import User, Agendamento, Sala
 
-# Register your models here.
+admin.site.register(User)
+admin.site.register(Agendamento)
+admin.site.register(Sala)
