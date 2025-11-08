@@ -2,6 +2,13 @@
 {% block header %}
 <h1>Agendamento para o dia {{ amanha }}</h1>
 <p>Os agendamentos só podem ser feitos para o dia seguinte.</p>
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
 {% endblock header %}
 {% block content %}
 <form action="{% url 'agendar' sala_id %}" method="post">
