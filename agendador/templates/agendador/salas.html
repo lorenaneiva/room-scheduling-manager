@@ -20,7 +20,7 @@
         <th>{{sala.recursos}}</th>
         <th>{{sala.localização}}</th>
         <th>
-            <a href="">Agendar</a>
+            <a href="{% url 'agendar' sala.id %}">Agendar</a>
         </th>
     </tr>
     {% endfor %}
