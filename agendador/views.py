@@ -52,16 +52,17 @@ def agendar(request, sala_id):
                 hora_fim__gt=novo_agendamento.hora_inicio # hora_fim é maior que a hora_inicio
             ).exists()
             if conflito:
+                hoje = date.today()
+                amanha = hoje + timedelta(days=1)  
                 messages.error(request, "Essa sala já está reservada nesse horário.")
-                return render(request, 'agendador/agendar.html', {'form': form, 'sala_id': sala_id})
+                return render(request, 'agendador/agendar.html', {'form': form, 'sala_id': sala_id, 'amanha':amanha})
             
             with transaction.atomic():
                 novo_agendamento.save()
             messages.success(request, 'Solicitação de agendamento feita com sucesso!')
             return HttpResponseRedirect(reverse('salas'))
     hoje = date.today()
-    amanha = hoje + timedelta(days=1)
-    
+    amanha = hoje + timedelta(days=1)    
     context = {
         'form': form,
         'sala_id':sala_id,
