@@ -40,4 +40,4 @@ class Agendamento(models.Model):
     hora_fim = models.TimeField()
 
     def __str__(self):
-        return f"{self.sala.nome} - {self.data_agendamento} - {self.professor.username}"
+        return f"{self.sala.nome} - {self.hora_inicio} até {self.hora_fim} do dia {self.data_agendamento} - {self.professor.username}"
