@@ -2,7 +2,6 @@ from django import forms
 from .models import Agendamento
 from django.forms import widgets
 from django.core.exceptions import ValidationError
-from datetime import datetime, timedelta 
 
 class AgendamentoForm(forms.ModelForm):
     hora_fim = forms.TimeField(
