@@ -1,5 +1,8 @@
 {% extends "agendador/base.html" %}
-{% block header %}{% endblock header %}
+{% block header %}
+<h1>Agendamento para o dia {{ amanha }}</h1>
+<p>Os agendamentos só podem ser feitos para o dia seguinte.</p>
+{% endblock header %}
 {% block content %}
 <form action="{% url 'agendar' sala_id %}" method="post">
     {% csrf_token %}
