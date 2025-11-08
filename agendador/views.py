@@ -81,3 +81,30 @@ def agendamentos_pendentes(request):
         'salas':salas
     }
     return render(request,'agendador/agendamentos_pendentes.html', context)
+
+def aceitar_agendamento(request, agendamento_id):
+    agendamento = get_object_or_404(Agendamento,id=agendamento_id)
+        
+    if request.method == 'POST':
+        if request.user.role == 'administrador':
+            agendamento.status = 'aceito'
+            agendamento.save(update_fields=['status'])
+            messages.success(request, "Agendamento aceito com sucesso")    
+            return redirect('agendamentos_pendentes')
+        else:
+            messages.error(request, "Só administradores podem aceitar agendamentos")
+            return redirect('agendamentos_pendentes')
+
+def rejeitar_agendamento(request, agendamento_id):
+    agendamento = get_object_or_404(Agendamento,id=agendamento_id)
+        
+    if request.method == 'POST':
+        if request.user.role == 'administrador':
+            agendamento.delete()
+            messages.success(request, "Agendamento rejeitado com sucesso")    
+            return redirect('agendamentos_pendentes')
+        else:
+            messages.error(request, "Só administradores podem rejeitar agendamentos")
+            return redirect('agendamentos_pendentes')
+
+

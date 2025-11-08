@@ -1,0 +1,40 @@
+{% extends "agendador/base.html" %}
+{% block header %}
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock header %}
+{% block content %}
+<table>
+    <tr>
+        <th>Sala</th>
+        <th>Horário</th>
+        <th>Professor</th>
+        <th>Descrição</th>
+        <th>Matéria</th>
+    </tr>
+        {% for ag in agendamentos %}
+        <tr>
+            <th>{{ag.sala.nome}}</th>
+            <th>{{ag.hora_inicio}} até {{ag.hora_fim}}</th>
+            <th>{{ag.professor}}</th>
+            <th>{{ag.observação}}</th>
+            <th>{{ag.materia}}</th>
+            <th>
+                <form action="{% url 'aceitar' ag.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Aceitar</button>
+                </form>
+                <form action="{% url 'rejeitar' ag.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Rejeitar</button>
+                </form>
+            </th>
+            </tr>
+        {% endfor %}
+</table>
+{% endblock content%}
