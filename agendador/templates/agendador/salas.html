@@ -17,7 +17,11 @@
     <tr>
         <th>{{sala.nome}}</th>
         <th>{{sala.capacidade}}</th>
-        <th>{{sala.recursos}}</th>
+        {% if sala.recursos %}
+            <th>{{sala.recursos}}</th>
+        {% else %}
+            <th>-</th>
+        {% endif %}
         <th>{{sala.localização}}</th>
         <th>
             <a href="{% url 'agendar' sala.id %}">Agendar</a>
