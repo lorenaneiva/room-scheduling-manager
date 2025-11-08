@@ -15,17 +15,23 @@
     </tr>
     {% for sala in salas %}
     <tr>
-        {% for agendamento in agendamentos %}
         <th>{{sala.nome}}</th>
+        {% for agendamento in agendamentos %}
         {% if agendamento.sala == sala %}
             <th> {{ agendamento.hora_inicio }} até {{agendamento.hora_fim }} </th>
             <th> {{ agendamento.professor }} </th>
+            <th>{{sala.localização}}</th>
         {% else %}
             <th> - </th>
             <th> - </th>
+            <th>{{sala.localização}}</th>
         {% endif %}
-        <th>{{sala.localização}}</th>
+        {% empty %}
+            <th> - </th>
+            <th> - </th>
+            <th>{{sala.localização}}</th>
         {% endfor %}
+        
     </tr>
     {% endfor %}
 </table>
