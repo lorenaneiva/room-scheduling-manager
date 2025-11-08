@@ -1,0 +1,9 @@
+{% extends "agendador/base.html" %}
+{% block header %}{% endblock header %}
+{% block content %}
+<form action="{% url 'agendar' sala_id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Solicitar</button>
+</form>
+{% endblock content%}
