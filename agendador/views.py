@@ -79,4 +79,4 @@ def agendamentos_pendentes(request):
     context = {
         'agendamentos':agendamentos
     }
-    return render(request,'agendador/agendar.html', context)
+    return render(request,'agendador/agendamentos_pendentes.html', context)
