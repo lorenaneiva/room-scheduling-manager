@@ -41,6 +41,3 @@ class Agendamento(models.Model):
 
     def __str__(self):
         return f"{self.sala.nome} - {self.data_agendamento} - {self.professor.username}"
-    def clean(self):
-        if self.hora_inicio > self.hora_fim: 
-            raise ValidationError("A hora inicial não pode ser depois da hora final.")
