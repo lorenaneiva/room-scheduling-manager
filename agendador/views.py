@@ -71,12 +71,13 @@ def agendar(request, sala_id):
     return render(request,'agendador/agendar.html', context)
 
 def agendamentos_pendentes(request):
-    agendamentos = (Agendamento.objects.filter(status='pendentes')
+    agendamentos = (Agendamento.objects.filter(status='pendente')
                     .distinct()
                     .select_related('professor','sala')
                     )
-    
+    salas = Sala.objects.order_by('capacidade')
     context = {
-        'agendamentos':agendamentos
+        'agendamentos':agendamentos,
+        'salas':salas
     }
     return render(request,'agendador/agendamentos_pendentes.html', context)
