@@ -22,8 +22,8 @@
             <th>{{ag.sala.nome}}</th>
             <th>{{ag.hora_inicio}} até {{ag.hora_fim}}</th>
             <th>{{ag.professor}}</th>
-            <th>{{ag.observação}}</th>
             <th>{{ag.materia}}</th>
+            <th>{{ag.observação}}</th>
             <th>
                 <form action="{% url 'aceitar' ag.id %}" method="post">
                     {% csrf_token %}
