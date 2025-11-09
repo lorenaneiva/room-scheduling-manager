@@ -90,6 +90,18 @@ def aceitar_agendamento(request, agendamento_id):
         
     if request.method == 'POST':
         if request.user.role == 'administrador':
+            conflito = Agendamento.objects.filter(
+                sala=agendamento.sala,
+                data_agendamento=agendamento.data_agendamento,
+                status='aceito'
+            ).filter(
+                hora_inicio__lt=agendamento.hora_fim, 
+                hora_fim__gt=agendamento.hora_inicio 
+            ).exists()
+            if conflito:
+                messages.error(request, "Essa sala já está reservada nesse horário.")
+                return redirect('agendamentos_pendentes')
+
             agendamento.status = 'aceito'
             agendamento.save(update_fields=['status'])
             messages.success(request, "Agendamento aceito com sucesso")    
