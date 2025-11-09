@@ -53,7 +53,9 @@
             </div>
         </div>
     </nav>
-    {% block header %} {% endblock header %}
-    {% block content %}{% endblock content%}
+    <div class="text-center d-flex flex-column m-5 align-items-center justify-content-center">
+        {% block header %}{% endblock header %}
+        {% block content %}{% endblock content%}
+    </div>
 </body>
 </html>
