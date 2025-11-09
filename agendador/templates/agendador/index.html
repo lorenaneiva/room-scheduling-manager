@@ -1,7 +1,7 @@
 {% extends "agendador/base.html" %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'agendador/css/index.css' %}">
-{% endblock extra_css %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'agendador/css/index.css' %}">{% endblock extra_css %}
+
 
 {% block header %}
 <h1>{{ data_atual }}</h1>
