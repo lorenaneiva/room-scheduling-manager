@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'agendador',
     'users',
-    'bootstrap5'
 ]
 
 MIDDLEWARE = [
