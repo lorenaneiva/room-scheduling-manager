@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load bootstrap5 %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,9 +8,11 @@
     <meta name="description" content="Aplicação para gerenciamento de agendamentos de salas">
     <meta name="keywords" content="gerenciar, gerenciador, gerenciamento, salas, professores, universidade, faculdade, curso, escola">
     <title>Agendamento de Salas</title>
+    {% bootstrap_css %}
 </head>
 <body>
-    <nav>
+    {% bootstrap_javascript %}
+    <nav class="nav">
         <a href="{% url 'index' %}">Home</a>
         {% if user.role == 'professor' %}
             <a href="{% url 'salas' %}">Agendar Sala</a>
