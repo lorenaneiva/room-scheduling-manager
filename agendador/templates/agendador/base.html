@@ -10,23 +10,48 @@
     <title>Agendamento de Salas</title>
     {% bootstrap_css %}
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100" style="background-color:#F2F2F2; color: #263140;">
     {% bootstrap_javascript %}
-    <nav class="nav">
-        <a href="{% url 'index' %}">Home</a>
-        {% if user.role == 'professor' %}
-            <a href="{% url 'salas' %}">Agendar Sala</a>
-        {% endif %}
-        {% if user.role == 'administrador' %}
-            <a href="{% url 'agendamentos_pendentes' %}">Solicitações pendentes</a>
-        {% endif %}
-        {% if user.is_authenticated%}
-            Olá, {{user.username}}!! -
-            <a href="{% url 'logout' %}">Sair</a>
-        {% else %}
-            <a href="{% url 'login' %}">Entrar</a>
-            <a href="{% url 'register' %}">Registrar</a>
-        {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F2F2F2;">
+        <div class="container-fluid">
+            <a href="{% url 'index' %}" class="navbar-brand">GestãoDeSalas</a>
+
+            <!-- Botão mobile -->
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5">
+                    {% if user.role == 'professor' %}
+                    <li class="nav-item">
+                        <a href="{% url 'salas' %}" class="nav-link">Agendar Sala</a>
+                    </li class="nav-item">    
+                    {% endif %}
+                    {% if user.role == 'administrador' %}
+                    <li>
+                        <a href="{% url 'agendamentos_pendentes' %}" class="nav-link">Solicitações pendentes</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated%}
+                        <p class="nav-link active">
+                            Olá, {{user.username}}!!
+                        </p>
+                        <li>
+                            <a href="{% url 'logout' %}" class="nav-link">Sair</a>
+                        </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link">Entrar</a>
+                    </li class="nav-item">
+                    <li class="nav-item">
+                        <a href="{% url 'register' %}" >Registrar</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </nav>
     {% block header %} {% endblock header %}
     {% block content %}{% endblock content%}
