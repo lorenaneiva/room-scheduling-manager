@@ -18,6 +18,13 @@
         {% if user.role == 'administrador' %}
             <a href="{% url 'agendamentos_pendentes' %}">Solicitações pendentes</a>
         {% endif %}
+        {% if user.is_authenticated%}
+            Olá, {{user.username}}!! -
+            <a href="">Sair</a>
+        {% else %}
+            <a href="{% url 'login' %}">Entrar</a>
+            <a href="">Registrar</a>
+        {% endif %}
     </nav>
     {% block header %} {% endblock header %}
     {% block content %}{% endblock content%}
