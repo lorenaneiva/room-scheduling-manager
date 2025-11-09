@@ -12,8 +12,12 @@
 <body>
     <nav>
         <a href="{% url 'index' %}">Home</a>
-        <a href="{% url 'salas' %}">Agendar Sala</a>
-        <a href="{% url 'agendamentos_pendentes' %}">Solicitações pendentes</a>
+        {% if user.role == 'professor' %}
+            <a href="{% url 'salas' %}">Agendar Sala</a>
+        {% endif %}
+        {% if user.role == 'administrador' %}
+            <a href="{% url 'agendamentos_pendentes' %}">Solicitações pendentes</a>
+        {% endif %}
     </nav>
     {% block header %} {% endblock header %}
     {% block content %}{% endblock content%}

@@ -36,6 +36,9 @@ def agendar(request, sala_id):
         form = AgendamentoForm()
     else:
         form = AgendamentoForm(request.POST)
+        if request.user.role != 'professor':
+            messages.error(request, "Só professores podem realizar agendamentos")
+            return redirect('agendar', sala_id=sala_id)
         if form.is_valid():
             
             novo_agendamento = form.save(commit=False)
