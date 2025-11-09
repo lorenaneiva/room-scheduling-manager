@@ -1,29 +1,13 @@
-FROM python:3.13-slim
+FROM python //imagem base
 
-WORKDIR /app
+WORKDIR /app // diretório de trabalho dentro do container.
 
-# Instalar Node.js
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt /app  // Copia o arquivo requirements.txt do seu computador para dentro do container.
 
-COPY requirements.txt /app
+RUN pip install -r requirements.txt // Instala as dependências do seu projeto (Django, etc.) dentro do container.
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . . //Copia todo o código do seu projeto para dentro do container.
 
-COPY . /app
+EXPOSE 8000 // Informa ao Docker que o container vai usar a porta 8000.
 
-# Verificar e instalar dependências do Tailwind
-RUN if [ -f theme/static_src/package.json ]; then \
-        echo "Instalando dependências do Tailwind..." && \
-        cd theme/static_src && npm install; \
-    else \
-        echo "package.json não encontrado em theme/static_src/"; \
-    fi
-
-EXPOSE 8000
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver","0.0.0.0:8000"] // Define o comando que o container executa ao iniciar.
