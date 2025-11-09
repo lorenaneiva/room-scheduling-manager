@@ -18,6 +18,9 @@ INSTALLED_APPS = [
     'agendador',
     'users',
 ]
+TAILWIND_APP_NAME = "theme"
+INTERNAL_IPS = ["127.0.0.1"]
+TAILWIND_DEV_MODE = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

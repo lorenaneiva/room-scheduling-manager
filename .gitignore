@@ -1,6 +1,15 @@
-.Dockerfile
+# Docker
+Dockerfile
+.dockerignore
+
+# Arquivos do Docker Compose
+.env
+
+# Desenvolvimento local
 .venv/
 db.sqlite3
 __pycache__/
 *.py[cod]
 *$py.class
+node_modules
+.DS_Store
