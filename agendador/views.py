@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import User, Agendamento, Sala
-from .forms import AgendamentoForm
+from .forms import AgendamentoForm, SalaForm
 from datetime import date, timedelta
 from django.db import transaction
 from django.contrib import messages
@@ -38,6 +38,23 @@ def gerenciar_salas(request):
     }
 
     return render(request,'agendador/gerenciar_salas.html', context)
+def add_salas(request):
+    if request.method != 'POST':
+        form = SalaForm()
+    else:
+        form = SalaForm(request.POST)
+        if request.user.role != 'administrador':
+            messages.error(request, "Só os administradores podem adicionar salas.")
+            return redirect('gerenciar_salas')
+        else:
+            if form.is_valid():
+                form.save()
+            messages.success(request, "Sala criada com sucesso!")
+            return HttpResponseRedirect(reverse('gerenciar_salas'))
+    context = {
+        'form':form,
+    }
+    return render(request,'agendador/add_salas.html', context)
 
 def agendar(request, sala_id):
     if request.method != 'POST':
