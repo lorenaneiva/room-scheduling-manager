@@ -1,44 +1,54 @@
 {% extends "agendador/base.html" %}
 {% load static %}
-{% block extra_css %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'agendador/css/index.css' %}">
 {% endblock extra_css %}
 
-
 {% block header %}
-<h1>{{ data_atual }}</h1>
-{%endblock header%}
+<div class="page-header text-center mt-4">
+  <h1 class="display-6 fw-bold text-secondary">{{ data_atual }}</h1>
+  <p class="text-muted">Veja abaixo as salas disponíveis e seus agendamentos</p>
+</div>
+{% endblock header %}
 
 {% block content %}
-
-<table class="table table-hover border border-3 ">
-    <tr>
-        <th>Sala</th>
-        <th>Horário</th>
-        <th>Responsável</th>
-        <th>Localização</th>
-    </tr>
-    {% for sala in salas %}
-    <tr>
-        <th>{{sala.nome}}</th>
-        {% for agendamento in agendamentos %}
-        {% if agendamento.sala == sala %}
-            <th> {{ agendamento.hora_inicio }} até {{agendamento.hora_fim }} </th>
-            <th> {{ agendamento.professor }} </th>
-            <th>{{sala.localização}}</th>
-        {% else %}
-            <th> - </th>
-            <th> - </th>
-            <th>{{sala.localização}}</th>
-        {% endif %}
-        {% empty %}
-            <th> - </th>
-            <th> - </th>
-            <th>{{sala.localização}}</th>
-        {% endfor %}
-        
-    </tr>
-    {% endfor %}
-</table>
-
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4 ">
+    <div class="card-body ">
+      <table class="table align-middle table-hover mb-0">
+        <thead class="table-light">
+          <tr class="text-center">
+            <th>Sala</th>
+            <th>Horário</th>
+            <th>Responsável</th>
+            <th>Localização</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sala in salas %}
+          <tr class="text-center">
+            <td class="fw-semibold text-dark">{{ sala.nome }}</td>
+            {% for agendamento in agendamentos %}
+              {% if agendamento.sala == sala %}
+                <td>{{ agendamento.hora_inicio }} até {{ agendamento.hora_fim }}</td>
+                <td>{{ agendamento.professor }}</td>
+                <td>{{ sala.localização }}</td>
+              {% else %}
+                <td>-</td>
+                <td>-</td>
+                <td>{{ sala.localização }}</td>
+              {% endif %}
+            {% empty %}
+              <td>-</td>
+              <td>-</td>
+              <td>{{ sala.localização }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}
