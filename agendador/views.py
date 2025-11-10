@@ -56,6 +56,24 @@ def add_salas(request):
     }
     return render(request,'agendador/add_salas.html', context)
 
+def edit_salas(request, sala_id):
+    sala = get_object_or_404(Sala, id=sala_id)
+
+    if request.user.role != 'administrador':
+        messages.error(request, "Só administradores podem editar salas")
+        return HttpResponseRedirect(reverse('gerenciar_salas'))
+    
+    form = SalaForm(request.POST or None, instance=sala)
+    if  request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, "Sala atualizada com sucesso!")
+        return HttpResponseRedirect(reverse('gerenciar_salas'))
+    context = {
+        'sala':sala,
+        'form':form
+    }
+    return render(request,'agendador/edit_salas.html', context)
+
 def agendar(request, sala_id):
     if request.method != 'POST':
         form = AgendamentoForm()
