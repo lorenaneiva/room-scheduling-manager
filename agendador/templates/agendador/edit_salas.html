@@ -1,0 +1,50 @@
+{% extends "agendador/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="page-header text-center mt-4">
+  <h1 class="display-6 fw-bold text-secondary">{{ sala.nome }}</h1>
+  <p class="text-muted"></p>
+</div>
+
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}  text-center" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock header %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4 mx-auto" style="max-width: 600px;">
+    <div class="card-body p-4">
+      <form action="{% url 'edit_salas' sala.id %}" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group mb-3">
+          {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+                <small>{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg px-4">
+            editar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
