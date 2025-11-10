@@ -1,5 +1,5 @@
 from django import forms
-from .models import Agendamento
+from .models import Agendamento, Sala
 from django.forms import widgets
 from django.core.exceptions import ValidationError
 
@@ -32,3 +32,9 @@ class AgendamentoForm(forms.ModelForm):
                 raise ValidationError("A reserva da sala deve ser de pelo menos 1h.")
             if duracao > 14400:
                 raise ValidationError("A reserva da sala deve ser de no máximo 4h.")
+
+class SalaForm(forms.ModelForm):
+    class Meta():
+        model = Sala
+        fields = ['nome','capacidade','recursos','localização']
+        labels = {'nome':'Nome', 'capacidade': 'Capacidade', 'recursos': 'Recursos', 'localização': 'Localização'}
