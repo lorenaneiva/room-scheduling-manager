@@ -1,19 +1,44 @@
 {% extends "agendador/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'agendador/css/index.css' %}">
+{% endblock extra_css %}
+
 {% block header %}
-<h1>Agendamento para o dia {{ amanha }}</h1>
-<p>Os agendamentos só podem ser feitos para o dia seguinte.</p>
+<div class="page-header text-center mt-4">
+  <h1 class="display-6 fw-bold text-secondary">Agendamento para o dia {{ amanha }}</h1>
+  <p class="text-muted">Os agendamentos só podem ser feitos para o dia seguinte.</p>
+</div>
+
 {% if messages %}
-  <ul class="messages">
+  <div class="container mt-3">
     {% for message in messages %}
-      <li class="{{ message.tags }}">{{ message }}</li>
+      <div class="alert alert-{{ message.tags }} text-center" role="alert">
+        {{ message }}
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 {% endif %}
 {% endblock header %}
+
 {% block content %}
-<form action="{% url 'agendar' sala_id %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Solicitar</button>
-</form>
-{% endblock content%}
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4 mx-auto" style="max-width: 600px;">
+    <div class="card-body p-4">
+      <h4 class="text-center mb-4 text-dark">Formulário de Agendamento</h4>
+      <form action="{% url 'agendar' sala_id %}" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group mb-3">
+          {{ form.as_p }}
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg px-4">
+            Solicitar Agendamento
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
