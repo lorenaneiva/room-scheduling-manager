@@ -1,0 +1,32 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'index' %}" id="len1" class="hoverable">GestãoDeSalas</a> </li> 
+            {% if user.role == 'professor' %}
+            <li class="nav-item">
+                <a href="{% url 'salas' %}" id="len2" class="hoverable">Agendar Sala</a>
+            </li class="nav-item">
+            {% endif %}
+            {% if user.role == 'administrador' %}
+            <li>
+                <a href="{% url 'agendamentos_pendentes' %}" id="len3" class="hoverable">Solicitações pendentes</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated%}
+                <li class="nav-link active" >
+                    Olá, {{user.username}}!!
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}" id="len4" class="hoverable">Sair</a>
+                </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'login' %}" id="len4" class="hoverable">Entrar</a>
+            </li class="nav-item">
+            <li class="nav-item">
+                <a href="{% url 'register' %}" id="len5" class="hoverable">Registrar</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
