@@ -27,25 +27,23 @@
         </thead>
         <tbody>
           {% for sala in salas %}
-          <tr class="text-center">
-            <td class="fw-semibold text-dark">{{ sala.nome }}</td>
-            {% for agendamento in agendamentos %}
-              {% if agendamento.sala == sala %}
-                <td>{{ agendamento.hora_inicio }} até {{ agendamento.hora_fim }}</td>
-                <td>{{ agendamento.professor }}</td>
-                <td>{{ sala.localização }}</td>
+            <tr class="text-center">
+              <td class="fw-semibold text-dark">{{ sala.nome }}</td>
+
+              {% if sala.agendamentos_sala %}
+                {% for agendamento in sala.agendamentos_sala %}
+                  <td>{{ agendamento.hora_inicio }} até {{ agendamento.hora_fim }}</td>
+                  <td>{{ agendamento.professor }}</td>
+                  <td>{{ sala.localização }}</td>
+                {% endfor %}
               {% else %}
                 <td>-</td>
                 <td>-</td>
                 <td>{{ sala.localização }}</td>
               {% endif %}
-            {% empty %}
-              <td>-</td>
-              <td>-</td>
-              <td>{{ sala.localização }}</td>
-            {% endfor %}
-          </tr>
+            </tr>
           {% endfor %}
+          </tr>
         </tbody>
       </table>
     </div>

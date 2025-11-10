@@ -16,6 +16,11 @@ def index(request):
                     .select_related('professor','sala')
                     )
     salas = Sala.objects.order_by('capacidade')
+    
+    # Cria uma nova lista com todos os agendamentos que pertencem a esta sala e salve essa lista dentro do objeto sala
+    for sala in salas:
+        sala.agendamentos_sala = [a for a in agendamentos if a.sala == sala]
+
     context = {
         'data_atual':data_atual,
         'agendamentos':agendamentos,
