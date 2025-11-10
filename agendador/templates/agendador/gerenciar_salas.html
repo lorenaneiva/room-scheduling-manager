@@ -48,11 +48,11 @@
             <td>{{ sala.localização }}</td>
             <td>
               <div class="d-flex justify-content-center gap-2">
-                <form action="{% url 'edit_salas' sala.id%}" method="post">
+                <form action="{% url 'edit_salas' sala.id %}" method="post">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-primary btn-sm">Editar</button>
                 </form>
-                <form action="" method="post">
+                <form action="{% url 'rm_salas' sala.id %}" method="post">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                 </form>
