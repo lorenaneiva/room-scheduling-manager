@@ -1,40 +1,71 @@
 {% extends "agendador/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'agendador/css/index.css' %}">
+{% endblock extra_css %}
+
 {% block header %}
+<div class="page-header text-center mt-4">
+  <h1 class="display-6 fw-bold text-secondary">Solicitações Pendentes</h1>
+  <p class="text-muted">Gerencie abaixo as solicitações de agendamento de salas</p>
+</div>
+
 {% if messages %}
-  <ul class="messages">
+  <div class="container mt-3">
     {% for message in messages %}
-      <li class="{{ message.tags }}">{{ message }}</li>
+      <div class="alert alert-{{ message.tags }} text-center" role="alert">
+        {{ message }}
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 {% endif %}
 {% endblock header %}
+
 {% block content %}
-<table>
-    <tr>
-        <th>Sala</th>
-        <th>Horário</th>
-        <th>Professor</th>
-        <th>Matéria</th>
-        <th>Descrição</th>
-    </tr>
-        {% for ag in agendamentos %}
-        <tr>
-            <th>{{ag.sala.nome}}</th>
-            <th>{{ag.hora_inicio}} até {{ag.hora_fim}}</th>
-            <th>{{ag.professor}}</th>
-            <th>{{ag.materia}}</th>
-            <th>{{ag.observação}}</th>
-            <th>
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body">
+      <table class="table align-middle table-hover mb-0">
+        <thead class="table-light">
+          <tr class="text-center">
+            <th>Sala</th>
+            <th>Horário</th>
+            <th>Professor</th>
+            <th>Matéria</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ag in agendamentos %}
+          <tr class="text-center">
+            <td class="fw-semibold text-dark">{{ ag.sala.nome }}</td>
+            <td>{{ ag.hora_inicio }} até {{ ag.hora_fim }}</td>
+            <td>{{ ag.professor }}</td>
+            <td>{{ ag.materia }}</td>
+            <td>{{ ag.observação|default:"-" }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
                 <form action="{% url 'aceitar' ag.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Aceitar</button>
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-success btn-sm">Aceitar</button>
                 </form>
                 <form action="{% url 'rejeitar' ag.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Rejeitar</button>
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm">Rejeitar</button>
                 </form>
-            </th>
-            </tr>
-        {% endfor %}
-</table>
-{% endblock content%}
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr class="text-center text-muted">
+            <td colspan="6">Nenhuma solicitação pendente.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
