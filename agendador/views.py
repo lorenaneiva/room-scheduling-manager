@@ -31,6 +31,14 @@ def salas(request):
 
     return render(request,'agendador/salas.html', context)
 
+def gerenciar_salas(request):
+    salas = Sala.objects.order_by('capacidade')
+    context = {
+        'salas':salas,
+    }
+
+    return render(request,'agendador/gerenciar_salas.html', context)
+
 def agendar(request, sala_id):
     if request.method != 'POST':
         form = AgendamentoForm()
