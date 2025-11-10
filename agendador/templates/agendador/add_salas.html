@@ -1,0 +1,40 @@
+{% extends "agendador/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="page-header text-center mt-4">
+  <h1 class="display-6 fw-bold text-secondary">Nova sala</h1>
+  <p class="text-muted">Disponibilize uma nova sala aos professores.</p>
+</div>
+
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}  text-center" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock header %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4 mx-auto" style="max-width: 600px;">
+    <div class="card-body p-4">
+      <h4 class="text-center mb-4 text-dark">Formulário de nova sala</h4>
+      <form action="{% url 'add_salas'%}" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group mb-3">
+          {{ form.as_p }}
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg px-4">
+            Adicionar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
