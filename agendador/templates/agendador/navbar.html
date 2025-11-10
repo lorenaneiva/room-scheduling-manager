@@ -1,32 +1,43 @@
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li><a href="{% url 'index' %}" id="len1" class="hoverable">GestãoDeSalas</a> </li> 
-            {% if user.role == 'professor' %}
-            <li class="nav-item">
-                <a href="{% url 'salas' %}" id="len2" class="hoverable">Agendar Sala</a>
-            </li class="nav-item">
-            {% endif %}
-            {% if user.role == 'administrador' %}
-            <li>
-                <a href="{% url 'agendamentos_pendentes' %}" id="len3" class="hoverable">Solicitações pendentes</a>
-            </li>
-            {% endif %}
-            {% if user.is_authenticated%}
-                <li class="nav-link active" >
-                    Olá, {{user.username}}!!
-                </li>
-                <li>
-                    <a href="{% url 'logout' %}" id="len4" class="hoverable">Sair</a>
-                </li>
-            {% else %}
-            <li class="nav-item">
-                <a href="{% url 'login' %}" id="len4" class="hoverable">Entrar</a>
-            </li class="nav-item">
-            <li class="nav-item">
-                <a href="{% url 'register' %}" id="len5" class="hoverable">Registrar</a>
-            </li>
-            {% endif %}
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F2F2F2;">
+  <div class="container-fluid">
+    <a href="{% url 'index' %}" class="navbar-brand fw-semibold">GestãoDeSalas</a>
+
+    <!-- Botão mobile -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center gap-2">
+
+        {% if user.role == 'professor' %}
+        <li class="nav-item">
+          <a href="{% url 'salas' %}" id="hoverable" class="btn btn-outline-dark btn-sm">Agendar Sala</a>
+        </li>
+        {% endif %}
+
+        {% if user.role == 'administrador' %}
+        <li class="nav-item">
+          <a href="{% url 'agendamentos_pendentes' %}" id="hoverable" class="btn btn-outline-dark btn-sm">Solicitações Pendentes</a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <li class="nav-item d-flex align-items-center">
+          <span class="me-3">Olá, {{ user.username }}!!</span>
+          <a href="{% url 'logout' %}" id="hoverable" class="btn btn-dark btn-sm">Sair</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'login' %}" id="hoverable" class="btn btn-outline-dark btn-sm">Entrar</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'register' %}" id="hoverable" class="btn btn-dark btn-sm">Registrar</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
+  </div>
 </nav>
