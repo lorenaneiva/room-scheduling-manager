@@ -64,7 +64,7 @@ def edit_salas(request, sala_id):
         return HttpResponseRedirect(reverse('gerenciar_salas'))
     
     form = SalaForm(request.POST or None, instance=sala)
-    if  request.method == 'POST' and form.is_valid():
+    if request.method == 'POST' and form.is_valid():
         form.save()
         messages.success(request, "Sala atualizada com sucesso!")
         return HttpResponseRedirect(reverse('gerenciar_salas'))
@@ -73,6 +73,18 @@ def edit_salas(request, sala_id):
         'form':form
     }
     return render(request,'agendador/edit_salas.html', context)
+
+def rm_salas(request, sala_id):
+    sala = get_object_or_404(Sala, id=sala_id)
+
+    if request.user.role != 'administrador':
+        messages.error(request, "Só administradores podem excluir salas")
+        return HttpResponseRedirect(reverse('gerenciar_salas'))
+    if request.method == 'POST':
+        sala.delete()
+        messages.success(request, "Sala excluída com sucesso")    
+        return redirect('gerenciar_salas')
+
 
 def agendar(request, sala_id):
     if request.method != 'POST':
